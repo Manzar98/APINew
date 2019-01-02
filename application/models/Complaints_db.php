@@ -27,7 +27,7 @@ Class Complaints_Db extends CI_Model {
 
 	public function filter_complaints($type,$filter){
 		//print_r($type);
-$condition="";
+		$condition="";
 		if (count($type)==1) {
 
 			$condition = $type." =" . "'" . $filter . "'";
@@ -40,19 +40,22 @@ $condition="";
 				$condition .= $type[$i]." =" . "'" . $filter[$i] . "'";
 				$condition .= " AND ";
 			}
+			$condition= substr_replace($condition ,"",-4);
 
 		}
 		//echo $condition;
-		// $this->db->select('*');
-		// $this->db->from('complaints');
-		// $this->db->where($condition);
-		// $query = $this->db->get();
 
-		// if ($query->num_rows() > 0) {
-		// 	return $query->result();
-		// } else {
-		// 	return false;
-		// }
+		// echo ;
+		$this->db->select('*');
+		$this->db->from('complaints');
+		$this->db->where($condition);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return false;
+		}
 	}
 
 	public function delete($userId){

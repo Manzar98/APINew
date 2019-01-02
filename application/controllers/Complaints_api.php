@@ -47,15 +47,15 @@ class Complaints_Api extends API_Controller{
              // you user authentication code will go here, you can compare the user with the database or whatever
    $this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
    $this->form_validation->set_rules('details', 'Details', 'required|xss_clean');
-   $this->form_validation->set_rules('priority', 'Priority', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('department', 'Department', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('province', 'Province', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('status', 'Status', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('created_on', 'Created_on', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('updated_on', 'Updated_on', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('read_on', 'Read_on', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('created_by', 'Created_by', 'trim|required|xss_clean');
-   $this->form_validation->set_rules('read_by', 'Read_by', 'trim|required|xss_clean');
+   $this->form_validation->set_rules('priority', 'Priority', 'required|xss_clean');
+   $this->form_validation->set_rules('department', 'Department', 'required|xss_clean');
+   $this->form_validation->set_rules('province', 'Province', 'required|xss_clean');
+   $this->form_validation->set_rules('status', 'Status', 'required|xss_clean');
+   $this->form_validation->set_rules('created_on', 'Created_on', 'required|xss_clean');
+   $this->form_validation->set_rules('updated_on', 'Updated_on', 'required|xss_clean');
+   $this->form_validation->set_rules('read_on', 'Read_on', 'required|xss_clean');
+   $this->form_validation->set_rules('created_by', 'Created_by', 'required|xss_clean');
+   $this->form_validation->set_rules('read_by', 'Read_by', 'required|xss_clean');
 
    if ($this->form_validation->run() == FALSE) {
 
@@ -148,7 +148,7 @@ public function filterapi(){
  $filterType = $this->input->post('type');//Type can be any column name.
 
  $filterValue = $this->input->post('filter');//Filter will be column value.
-echo $filterValue;
+//echo $filterValue;
  $res = $this->complaints_db->filter_complaints($filterType,$filterValue);
  
  // return data
