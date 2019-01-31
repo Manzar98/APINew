@@ -71,5 +71,46 @@ Class Complaints_Db extends CI_Model {
 		->update('complaints',$data);
 	}
 
+	public function getsingle($userId){
+		
+		$condition = "id =" . "'" . $userId . "'";
+		$this->db->select('*');
+		$this->db->from('complaints');
+		$this->db->where($condition);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return false;
+		}
+
+	}
+	public function statuscount(){
+//select status, count(status) from complaints group by status
+
+		$this->db->select('status, count(status) as total');
+		$this->db->from('complaints');
+		$this->db->group_by('status');
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+
+			$data = $query->result();
+			$array=[];
+			$total="";
+			foreach ($data as $key => $v) {
+
+				$array[$v->status]  = $v->total;
+				$total+= $v->total;
+			}
+			$array['total']= "".$total."";
+			return $array;
+			
+		} else {
+			return false;
+		}
+
+	}
 }
 ?>

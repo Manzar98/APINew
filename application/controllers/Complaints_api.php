@@ -73,7 +73,7 @@ class Complaints_Api extends API_Controller{
     'priority' => $this->input->post('priority'),
     'department' => $this->input->post('department'),
     'province' => $this->input->post('province'),
-    'status' => $this->input->post('status'),
+    'status' => "pending",
     'created_on' => $this->input->post('created_on'),
     'updated_on' => $this->input->post('updated_on'),
     'read_on' => $this->input->post('read_on'),
@@ -171,7 +171,7 @@ public function updatecomplaints(){
 ]);
 
              // you user authentication code will go here, you can compare the user with the database or whatever
-$this->form_validation->set_rules('id', 'Complaint Id', 'required|xss_clean');
+ $this->form_validation->set_rules('id', 'Complaint Id', 'required|xss_clean');
  $this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
  $this->form_validation->set_rules('details', 'Details', 'required|xss_clean');
  $this->form_validation->set_rules('priority', 'Priority', 'required|xss_clean');
@@ -212,17 +212,65 @@ $this->form_validation->set_rules('id', 'Complaint Id', 'required|xss_clean');
  $result = $this->complaints_db->update_complaints($data);
  
  if ($result==TRUE) {
-       
+
   $this->api_return(
     [
       'status' => true,
       "result" => 'Data Successfully Updated',
     ],
     200);
-
 }
 }
 }
 
+function getcount(){
+ header("Access-Control-Allow-Origin: *");
+
+        // API Configuration
+ $this->_apiConfig([
+  'methods' => ['POST'],
+  'requireAuthorization' => true,
+]);
+ $res = $this->complaints_db->statuscount();
+
+ $this->api_return(
+  [
+    'status' => true,
+    "result" =>  $res
+  ],
+  200);
+}
+function getsinglecomplaint(){
+ header("Access-Control-Allow-Origin: *");
+
+        // API Configuration
+ $this->_apiConfig([
+  'methods' => ['POST'],
+  'requireAuthorization' => true,
+]);
+
+
+ $this->form_validation->set_rules('id', 'Complaint Id', 'trim|required|xss_clean');
+ if ($this->form_validation->run() == FALSE) {
+
+  $this->api_return(
+    [
+      'status' => false,
+      "msg" =>  "Error in form"
+    ],
+    200);
+}else{
+  $c_id=$this->input->post('id');
+  $res = $this->complaints_db->getsingle($c_id);
+
+  $this->api_return(
+    [
+      'status' => true,
+      "result" =>  $res
+    ],
+    200);
+}
+
+}
 }
 ?>

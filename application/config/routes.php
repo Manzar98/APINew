@@ -67,3 +67,5 @@ $route['api/v1/complaints/insertcomplaints'] =  'complaints_api/insertcomplaints
 $route['api/v1/complaints/filtercomplaints'] =  'complaints_api/filterapi';
 $route['api/v1/complaints/delete'] =  'complaints_api/delete';
 $route['api/v1/complaints/updatecomplaints'] =  'complaints_api/updatecomplaints';
+$route['api/v1/complaints/getsinglecomplaint'] =  'complaints_api/getsinglecomplaint';
+$route['api/v1/complaints/getcount'] =  'complaints_api/getcount';
